@@ -19,9 +19,9 @@ public class GameManger : MonoBehaviour
     public const int MIN_NUMBER = 1;
     public const int MAX_NUMBER = 10;
 
-    public Image _numberA;
-    public Image _numberB;
-    public Image _numberC;
+    public Text _numberA;
+    public Text _numberB;
+    public Text _numberC;
 
     public Sprite[] spriteArray;
 
@@ -34,14 +34,12 @@ public class GameManger : MonoBehaviour
 
     public Button playBtn;
 
-    // Start is called before the first frame update
     void Start()
     {
         jackpot = PlayerPrefs.GetInt("LastJackpot");
         UpdateText();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (token <= 0)
@@ -59,15 +57,15 @@ public class GameManger : MonoBehaviour
         numberA = (int)UnityEngine.Random.Range(MIN_NUMBER, MAX_NUMBER);
         numberB = (int)UnityEngine.Random.Range(MIN_NUMBER, MAX_NUMBER);
         numberC = (int)UnityEngine.Random.Range(MIN_NUMBER, MAX_NUMBER);
-        ChangeSprite();
+        ChangeResult();
         Result();
     }
 
-    void ChangeSprite()
+    void ChangeResult()
     {
-        _numberA.sprite = spriteArray[numberA - 1];
-        _numberB.sprite = spriteArray[numberB - 1];
-        _numberC.sprite = spriteArray[numberC - 1];
+        _numberA.text = numberA.ToString();
+        _numberB.text = numberB.ToString();
+        _numberC.text = numberC.ToString();
     }
 
     public void Result()
@@ -76,6 +74,7 @@ public class GameManger : MonoBehaviour
         {
             if (numberA == 7 && numberB == 7 && numberC == 7)
             {
+                Debug.Log($" Jackpot: {jackpot}");
                 token = token + jackpot;
                 jackpot = 0;
             }
